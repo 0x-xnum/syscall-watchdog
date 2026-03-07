@@ -13,7 +13,6 @@
 
 #define _POSIX_C_SOURCE 200112L
 
-/* C standard library */
 #include <errno.h>
 #include <stdio.h>
 #include <stddef.h>
@@ -23,13 +22,11 @@
 #include <time.h>
 #include <signal.h>
 
-/* POSIX */
 #include <unistd.h>
 #include <sys/user.h>
 #include <sys/wait.h>
 #include <fcntl.h>
 
-/* Linux */
 #include <syscall.h>
 #include <sys/ptrace.h>
 
