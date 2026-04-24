@@ -1,28 +1,25 @@
-# IDS Monitor - Makefile
-# Compile: make
-# Clean:   make clean
+CC     = gcc
+CFLAGS = -Wall -Wextra -pedantic -std=c11 -Iinclude
+TARGET = ids_monitor
+TEST   = test_targets
+SRCS   = src/main.c src/monitor.c src/syscall_filter.c src/logger.c
+OBJS   = $(SRCS:.c=.o)
 
-CC      = gcc
-CFLAGS  = -O2 -Wall -Wextra -std=c11
-TARGETS = ids_monitor test_targets
+.PHONY: all clean test
 
-all: $(TARGETS)
+all: $(TARGET) $(TEST)
 
-ids_monitor: ids_monitor.c
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+$(TEST): tests/test_targets.c
 	$(CC) $(CFLAGS) -o $@ $<
-	@echo "Built ids_monitor"
 
-test_targets: test_targets.c
-	$(CC) $(CFLAGS) -o $@ $<
-	@echo "Built test_targets"
+src/%.o: src/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+test: all
+	@echo "Run: sudo ./$(TARGET) ./$(TEST) <1-6>"
 
 clean:
-	rm -f $(TARGETS) ids_alerts.log
-
-# ── How to run ──────────────────────────────────────────────────────────────
-# Run a test:        sudo ./ids_monitor ./test_targets 1
-# Monitor ls:        sudo ./ids_monitor ls /etc
-# Monitor any prog:  sudo ./ids_monitor <program> [args]
-# See alerts live:   watch the red [ALERT] lines in terminal
-# See log file:      cat ids_alerts.log
-# ─────────────────────────────────────────────────────────────────────────────
+	rm -f $(OBJS) $(TARGET) $(TEST) ids_alerts.log

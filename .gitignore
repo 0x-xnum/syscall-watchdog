@@ -1,3 +1,8 @@
 ids_monitor
 test_targets
+src/*.o
 ids_alerts.log
+.vscode/
+*.swp
+*~
+.DS_Store
