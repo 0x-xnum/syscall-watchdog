@@ -77,3 +77,9 @@ syscall-watchdog/
 ## Platform
 
 Linux x86-64 only.
+
+
+## Academic Context
+
+This project was developed as part of the Operating Systems course at Elsewedy University of Technology. 
+
